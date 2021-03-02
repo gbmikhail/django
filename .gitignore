@@ -1,1 +1,5 @@
 /geekshop/.idea
+/geekshop/__pycache__
+/geekshop/geekshop/__pycache__
+/geekshop/mainapp/__pycache__
+/geekshop/mainapp/migrations/__pycache__
