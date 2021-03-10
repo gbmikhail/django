@@ -3,3 +3,6 @@
 /geekshop/geekshop/__pycache__
 /geekshop/mainapp/__pycache__
 /geekshop/mainapp/migrations/__pycache__
+/geekshop/authapp/__pycache__
+/geekshop/authapp/migrations/__pycache__
+/geekshop/mainapp/management/commands/__pycache__

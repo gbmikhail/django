@@ -3,5 +3,13 @@
     <li><a href="{% url 'main' %}" {% if request.resolver_match.url_name == 'main' %} class="active" {% endif %}>домой</a></li>
     <li><a href="{% url 'products:products' %}" {% if 'products' in request.resolver_match.namespaces %} class="active" {% endif %}>продукты</a></li>
     <li><a href="{% url 'contacts' %}" {% if request.resolver_match.url_name == 'contacts' %} class="active" {% endif %}>контакты</a></li>
+
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'auth:edit' %}">{{ user.first_name|default:"Пользователь" }}</a></li>
+        <li><a href="{% url 'auth:logout' %}">Выход</a></li>
+    {% else %}
+        <li><a href="{% url 'auth:login' %}">Вход</a></li>
+    {% endif %}
+
 </ul>
 <a href="#" class="search"></a>

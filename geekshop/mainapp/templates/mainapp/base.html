@@ -6,6 +6,7 @@
 	<title>
         {% if title %} {{ title|title }} - {% endif %} Мой магазин
     </title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
     {% block css %}
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
