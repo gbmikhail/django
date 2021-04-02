@@ -11,15 +11,6 @@ from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Product
 
 
-# @user_passes_test(lambda u: u.is_superuser)
-# def users(request):
-#     users_list = ShopUser.objects.all().order_by('-is_active', '-is_superuser', '-is_staff', 'username')
-#     content = {
-#         'object_list': users_list
-#     }
-#     return render(request, 'adminapp/users.html', content)
-
-
 class UsersListView(ListView):
     model = ShopUser
     template_name = 'adminapp/users.html'
@@ -85,21 +76,6 @@ def categories(request):
     return render(request, 'adminapp/categories.html', content)
 
 
-# @user_passes_test(lambda u: u.is_superuser)
-# def category_create(request):
-#     if request.method == 'POST':
-#         category_form = ProductCategoryEditForm(request.POST, request.FILES)
-#         if category_form.is_valid():
-#             category_form.save()
-#             return HttpResponseRedirect(reverse('adminapp:category_read'))
-#     else:
-#         category_form = ProductCategoryEditForm()
-#     content = {
-#         'form': category_form,
-#     }
-#     return render(request, 'adminapp/category_update.html', content)
-
-
 class ProductCategoryCreateView(CreateView):
     model = ProductCategory
     template_name = 'adminapp/category_update.html'
@@ -110,24 +86,6 @@ class ProductCategoryCreateView(CreateView):
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
-
-# @user_passes_test(lambda u: u.is_superuser)
-# def category_update(request, pk):
-#     category_item = get_object_or_404(ProductCategory, pk=pk)
-#     if request.method == 'POST':
-#         update_form = ProductCategoryEditForm(request.POST, request.FILES, instance=category_item)
-#         if update_form.is_valid():
-#             update_form.save()
-#             return HttpResponseRedirect(reverse('adminapp:category_read'))
-#     else:
-#         update_form = ProductCategoryEditForm(instance=category_item)
-#
-#     content = {
-#         'form': update_form,
-#     }
-#
-#     return render(request, 'adminapp/category_update.html', content)
 
 
 class ProductCategoryUpdateView(UpdateView):
@@ -156,20 +114,6 @@ class ProductCategoryUpdateView(UpdateView):
     #     pass
 
 
-# @user_passes_test(lambda u: u.is_superuser)
-# def category_delete(request, pk):
-#     category = get_object_or_404(ProductCategory, pk=pk)
-#     if request.method == 'POST':
-#         category.is_active = not category.is_active
-#         category.save()
-#         return HttpResponseRedirect(reverse('adminapp:category_read'))
-#
-#     content = {
-#         'object': category
-#     }
-#     return render(request, 'adminapp/category_delete.html', content)
-
-
 class ProductCategoryDeleteView(DeleteView):
     model = ProductCategory
     template_name = 'adminapp/category_delete.html'
@@ -182,41 +126,50 @@ class ProductCategoryDeleteView(DeleteView):
         return HttpResponseRedirect(self.success_url)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def products(request, pk):
-    category_item = get_object_or_404(ProductCategory, pk=pk)
-    products_list = Product.objects.filter(category=category_item).order_by('-is_active')
-    content = {
-        'objects': products_list,
-        'category': category_item
-    }
-    return render(request, 'adminapp/products.html', content)
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def product_create(request, pk):
-    category_item = get_object_or_404(ProductCategory, pk=pk)
-    if request.method == 'POST':
-        product_form = ProductEditForm(request.POST, request.FILES)
-        if product_form.is_valid():
-            product_form.save()
-            return HttpResponseRedirect(reverse('adminapp:products', args=[pk]))
-    else:
-        product_form = ProductEditForm()
-    content = {
-        'form': product_form,
-        'category': category_item
-    }
-    return render(request, 'adminapp/product_update.html', content)
-
-
 # @user_passes_test(lambda u: u.is_superuser)
-# def product_read(request, pk):
-#     product_item = get_object_or_404(Product, pk=pk)
+# def products(request, pk):
+#     category_item = get_object_or_404(ProductCategory, pk=pk)
+#     products_list = Product.objects.filter(category=category_item).order_by('-is_active')
 #     content = {
-#         'object': product_item
+#         'objects': products_list,
+#         'category': category_item
 #     }
-#     return render(request, 'adminapp/product_read.html', content)
+#     return render(request, 'adminapp/products.html', content)
+
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'adminapp/products.html'
+    paginate_by = 2
+
+    def get_queryset(self):
+        category_pk = self.kwargs['pk']
+        return Product.objects.filter(category__pk=category_pk).order_by('name')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = get_object_or_404(ProductCategory, pk=self.kwargs['pk'])
+        context['category'] = category
+        return context
+
+
+class ProdyctCreateView(CreateView):
+    model = Product
+    form_class = ProductEditForm
+    template_name = 'adminapp/product_update.html'
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = get_object_or_404(ProductCategory, pk=self.kwargs['pk'])
+        context['category'] = category
+        return context
+
+    def get_success_url(self):
+        return reverse('adminapp:products', args=[self.kwargs['pk']])
 
 
 class ProductDetailView(DetailView):
@@ -228,34 +181,38 @@ class ProductDetailView(DetailView):
         return super().dispatch(request, *args, **kwargs)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def product_update(request, pk):
-    product_item = get_object_or_404(Product, pk=pk)
-    if request.method == 'POST':
-        update_form = ProductEditForm(request.POST, request.FILES, instance=product_item)
-        if update_form.is_valid():
-            update_form.save()
-            return HttpResponseRedirect(reverse('adminapp:products', args=[product_item.category_id]))
-    else:
-        update_form = ProductEditForm(instance=product_item)
+class ProdyctUpdateView(UpdateView):
+    model = Product
+    form_class = ProductEditForm
+    template_name = 'adminapp/product_update.html'
 
-    content = {
-        'form': update_form,
-        'category': product_item.category
-    }
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
-    return render(request, 'adminapp/product_update.html', content)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.object = self.get_object()
+        category = get_object_or_404(ProductCategory, pk=self.object.category.pk)
+        context['category'] = category
+        return context
+
+    def get_success_url(self):
+        self.object = self.get_object()
+        return reverse('adminapp:products', args=[self.object.category.pk])
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def product_delete(request, pk):
-    product_item = get_object_or_404(Product, pk=pk)
-    if request.method == 'POST':
-        product_item.is_active = not product_item.is_active
-        product_item.save()
-        return HttpResponseRedirect(reverse('adminapp:products', args=[product_item.category.pk]))
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'adminapp/product_delete.html'
 
-    content = {
-        'product_to_delete': product_item
-    }
-    return render(request, 'adminapp/product_delete.html', content)
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = not self.object.is_active
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        self.object = self.get_object()
+        return reverse('adminapp:products', args=[self.object.category.pk])

@@ -10,7 +10,7 @@
       </a>
     </button>
 
-    {% for object in objects %}
+    {% for object in object_list %}
       <div class="product_record {% if not object.is_active %}not_active{% endif %}">
         <img
           {# src="/media/{{object.image|default:'products_images/default.jpg'}}" #}
@@ -47,5 +47,20 @@
         </div>
       </div>
     {% endfor%}
+
+              <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'adminapp:products' category.pk %}?page={{ page_obj.previous_page_number }}"> << </a>
+                {% endif %}
+
+                <span class="current">
+                    страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="{% url 'adminapp:products' category.pk %}?page={{ page_obj.next_page_number }}"> >> </a>
+                {% endif %}
+            </div>
+
   </div>
 {% endblock %}
