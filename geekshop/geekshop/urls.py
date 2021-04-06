@@ -28,7 +28,7 @@ urlpatterns = [
     path('basket/', include('basketapp.urls', namespace='basket')),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('contacts/', mainapp.contacts, name='contacts'),
-    path('admin/', include('adminapp.urls', namespace='admin')),
+    path('admin/', include('adminapp.urls', namespace='adminapp')),
 
     path('django-admin/', admin.site.urls),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url("/static/img/favicon.ico")))
