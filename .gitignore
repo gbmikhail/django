@@ -4,3 +4,4 @@ __pycache__
 venv
 env
 tmp
+/geekshop/geekshop/social_auth/vk.json

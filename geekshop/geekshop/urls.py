@@ -31,7 +31,9 @@ urlpatterns = [
     path('admin/', include('adminapp.urls', namespace='adminapp')),
 
     path('django-admin/', admin.site.urls),
-    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url("/static/img/favicon.ico")))
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url("/static/img/favicon.ico"))),
+
+    path('', include('social_django.urls', namespace='social')),
 ]
 
 if settings.DEBUG:
