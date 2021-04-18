@@ -57,11 +57,7 @@ def save_user_profile(backend, user: ShopUser, response, *args, **kwargs):
         if not avatar:
             photo = requests.get(data['photo_max'])
             if photo.status_code == 200:
-                try:
-                    fl_name = photo.request.url.split('?')[0]
-                    fl_name = fl_name.split('/')[-1]
-                except Exception as _:
-                    fl_name = f'{user.id}.jpg'
+                fl_name = f'{user.id}.jpg'
                 avatar = os.path.join('users_avatar', fl_name)
 
                 user.avatar = avatar
