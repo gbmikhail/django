@@ -54,7 +54,7 @@ def save_user_profile(backend, user: ShopUser, response, *args, **kwargs):
     if data['photo_max']:
         # users_avatar/product-3.jpg
         avatar = user.avatar
-        if not avatar:
+        if True: #not avatar:
             photo = requests.get(data['photo_max'])
             if photo.status_code == 200:
                 fl_name = f'{user.id}.jpg'
