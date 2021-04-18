@@ -31,14 +31,12 @@
         {% endif %}
         {% if user.is_superuser %}
             <li>
-                <a href="{% url 'adminapp:users' %}">админка</a>
+                <a href="{% url 'adminapp:user_read' %}">админка</a>
             </li>
         {% endif %}
-
-
-        {% if user.is_superuser %}
-            <li><a href="{% url 'adminapp:user_read' %}">Админка</a></li>
-        {% endif %}
+{#        {% if user.is_superuser %}#}
+{#            <li><a href="{% url 'adminapp:user_read' %}">Админка</a></li>#}
+{#        {% endif %}#}
         <li><a href="{% url 'auth:logout' %}">Выход</a></li>
     {% else %}
         <li><a href="{% url 'auth:login' %}">Вход</a></li>
