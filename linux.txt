@@ -1,0 +1,74 @@
+sudo apt update
+sudo apt install mc htop
+sudo apt install nginx
+sudo apt install git
+sudo apt install python3-venv
+
+sudo apt install postgresql postgresql-contrib
+sudo mcedit /etc/postgresql/12/main/pg_hba.conf
+		peer > trust
+sudo systemctl restart postgresql
+psql -U postgres
+		create database geekshop;
+		\l
+		\q
+		
+useradd -g www-data -m django
+cd /home/django
+
+ssh-keygen
+cat /root/.ssh/id_rsa.pub
+
+
+git clone git@github.com:gbmikhail/django.git
+cd geekshop
+python3 -m venv env
+source env/bin/activate
+pip3 install wheel
+pip3 install -r requirements.txt
+pip3 install psycopg2-binary
+pip3 install gunicorn
+
+# test
+python3 manage.py
+chown -R django /home/django/django/
+?? chmod -R 755 /home/django/django/
+nano /etc/systemd/system/gunicorn.service
+
+	[Unit]
+	Description=gunicorn daemon
+	After=network.target
+
+	[Service]
+	User=django
+	Group=www-data
+	WorkingDirectory=/home/django/django/geekshop
+	ExecStart=/home/django/django/geekshop/env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/django/django/geekshop/geekshop.sock geekshop.wsgi
+
+	[Install]
+	WantedBy=multi-user.target
+
+systemctl start gunicorn
+systemctl status gunicorn
+
+nano /etc/nginx/sites-available/geekhop
+	server {
+			listen 80;
+			server_name 178.21.11.13;
+
+			location /static/ {
+					root /home/django/django/geekshop;
+			}
+
+			location /media/ {
+					root /home/django/django/geekshop;
+			}
+
+			location / {
+					include proxy_params;
+					proxy_pass http://unix:/home/django/django/geekshop/geekshop.sock;
+			}
+	}
+
+ln -s /etc/nginx/sites-available/geekhop /etc/nginx/sites-enabled/
+systemctl restart nginx
