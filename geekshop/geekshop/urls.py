@@ -13,15 +13,29 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.urls import path, include
+from django.views.generic import RedirectView
 
 from mainapp import views as mainapp
 
 urlpatterns = [
-    path('', mainapp.main),
-    path('products/', mainapp.products),
-    path('contacts/', mainapp.contacts),
+    path('', mainapp.main, name='main'),
+    path('products/', include('mainapp.urls', namespace='products')),
+    path('basket/', include('basketapp.urls', namespace='basket')),
+    path('auth/', include('authapp.urls', namespace='auth')),
+    path('contacts/', mainapp.contacts, name='contacts'),
+    path('admin/', include('adminapp.urls', namespace='adminapp')),
+    path('order/', include('ordersapp.urls', namespace='order')),
 
-    path('admin/', admin.site.urls),
+    path('django-admin/', admin.site.urls),
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url("/static/img/favicon.ico"))),
+
+    path('', include('social_django.urls', namespace='social')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

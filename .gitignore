@@ -1,1 +1,7 @@
 /geekshop/.idea
+
+__pycache__
+venv
+env
+tmp
+/geekshop/geekshop/social_auth/vk.json

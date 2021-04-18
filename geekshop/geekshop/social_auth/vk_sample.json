@@ -1,0 +1,4 @@
+{
+  "SOCIAL_AUTH_VK_OAUTH2_KEY": "ID приложения",
+  "SOCIAL_AUTH_VK_OAUTH2_SECRET": "Защищённый ключ"
+}

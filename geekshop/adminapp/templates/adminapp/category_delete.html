@@ -1,0 +1,19 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="category_delete">
+        Вы уверены, что хотите удалить категорию <strong>{{ object.name }}</strong>?
+        <form action="{% url 'adminapp:category_delete' object.pk %}" method="post">
+            {% csrf_token %}
+            {% if object.is_active %}
+                <input class="btn btn-danger" type="submit" value="Удалить">
+            {% else %}
+                <input class="btn btn-primary" type="submit" value="Восстановить">
+            {% endif %}
+        </form>
+        <button class="btn btn-success">
+            <a href="{% url 'adminapp:category_read' %}">Отмена</a>
+        </button>
+    </div>
+{% endblock %}
