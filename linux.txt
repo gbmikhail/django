@@ -77,3 +77,5 @@ nano /etc/nginx/sites-available/geekhop
 
 ln -s /etc/nginx/sites-available/geekhop /etc/nginx/sites-enabled/
 systemctl restart nginx
+или
+systemctl restart gunicorn
