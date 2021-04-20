@@ -79,3 +79,30 @@ ln -s /etc/nginx/sites-available/geekhop /etc/nginx/sites-enabled/
 systemctl restart nginx
 или
 systemctl restart gunicorn
+
+
+
+6. Django Framework. Инструменты оптимизации
+
+pip install django-debug-toolbar
+pip install django-debug-toolbar-template-profiler
+	change code
+systemctl restart gunicorn
+	change code(STATIC_ROOT)
+python3 manage.py collectstatic
+pip3 install django-extensions
+pip3 install pydotplus
+
+apt install graphviz
+python manage.py graph_models -a -g -o geekshop_visualized.png
+
+apt install siege
+siege -f /home/django/django/geekshop/urls.txt  -d1 -r10 -c1
+siege -f /home/django/django/geekshop/urls.txt  -d1 -r10 -c1 --debug
+nano /root/.siege/siege.conf
+	login_url = http://178.21.11.13/auth/login/ POST username=django&password=geekbrains
+
+
+
+
+
