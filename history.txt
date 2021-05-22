@@ -1,0 +1,160 @@
+    1  pwd
+    2  sudo apt update
+    3  apt install mc htop
+    4  htop
+    5  apt install nginx
+    6  install git
+    7  apt install git
+    8  apt install python3-venv
+    9  apt install postgresql postgresql-contrib
+   10  sudo mcedit /etc/postgresql/12/main/pg_hba.conf
+   11  systemctl restart postgresql
+   12  psql -U postgres
+   13  useradd -g www-data -m djando
+   14  cd /home/djando
+   15  ssh-keygen
+   16  cat /root/.ssh/id_rsa.pub 
+   17  git clone git clone git@github.com:gbmikhail/django.git
+   18  git clone git@github.com:gbmikhail/django.git
+   19  mc
+   20  git clone --bare geekshop git@github.com:gbmikhail/django.git
+   21  git clone --bare django git@github.com:gbmikhail/django.git
+   22  git clone git@github.com:gbmikhail/django.git/
+   23  git clone git@github.com:gbmikhail/django.git
+   24  mc
+   25  cd django/geekshop/
+   26  ls -l
+   27  python3 -m venv env
+   28  git status
+   29  source env/bin/activate
+   30  pip3 install -r requirements.txt 
+   31  pip3 install psycopg2-binary
+   32  pip3 install gunicorn
+   33  pip3 install wheel
+   34  pip3 install gunicorn
+   35  pip3 freeze
+   36  mc
+   37  git pull
+   38  mc
+   39  python3 manage.py migrate
+   40  mc
+   41  copy geekshop/social_auth/vk_sample.json geekshop/social_auth/vk.json
+   42  cp geekshop/social_auth/vk_sample.json geekshop/social_auth/vk.json
+   43  mc
+   44  python3 manage.py migrate
+   45  python3 manage.py fill_db
+   46  python3 manage.py fill
+   47  python3 manage.py runserver
+   48  python3 manage.py runserver 0.0.0.0:8000
+   49  ls -la
+   50  chown -R django /home/djando/django/
+   51  chown -R djando /home/djando/django/
+   52  ls -la
+   53  nano /etc/systemd/system/gunicorn.service
+   54  systemctl enable gunicorn
+   55  nano /etc/systemd/system/gunicorn.service
+   56  systemctl enable gunicorn
+   57  systemctl start gunicorn
+   58  nano /etc/systemd/system/gunicorn.service
+   59  systemctl status gunicorn
+   60  nano /etc/systemd/system/gunicorn.service
+   61  systemctl start gunicorn
+   62  systemctl status gunicorn
+   63  systemctl stop gunicorn
+   64  systemctl status gunicorn
+   65  systemctl start gunicorn
+   66  systemctl status gunicorn
+   67  nano /etc/systemd/system/gunicorn.service
+   68  systemctl start gunicorn
+   69  systemctl status gunicorn
+   70  nano /etc/systemd/system/gunicorn.service
+   71  usermod -l django -m -d /home/django djando
+   72  pwd
+   73  mc
+   74  cd //
+   75  cd /
+   76  cd /home/django/django/geekshop/
+   77  nano /etc/systemd/system/gunicorn.service
+   78  ls -la
+   79  systemctl start gunicorn
+   80  systemctl daemon-reload
+   81  systemctl status gunicorn
+   82  systemctl start gunicorn
+   83  systemctl status gunicorn
+   84  nano /etc/systemd/system/gunicorn.service
+   85  systemctl stop gunicorn
+   86  systemctl status gunicorn
+   87  systemctl start gunicorn
+   88  systemctl status gunicorn
+   89  nano /etc/systemd/system/gunicorn.service
+   90  systemctl daemon-reload
+   91  systemctl stop gunicorn
+   92  systemctl daemon-reload
+   93  systemctl start gunicorn
+   94  systemctl status gunicorn
+   95  nano /etc/systemd/system/gunicorn.service
+   96  systemctl stop gunicorn
+   97  systemctl daemon-reload
+   98  systemctl start gunicorn
+   99  systemctl status gunicorn
+  100  nano /etc/systemd/system/gunicorn.service
+  101  chmod 755 /home/django/django/
+  102  systemctl start gunicorn
+  103  systemctl status gunicorn
+  104  nano /etc/systemd/system/gunicorn.service
+  105  systemctl start gunicorn
+  106  systemctl daemon-reload
+  107  systemctl start gunicorn
+  108  systemctl status gunicorn
+  109  nano /etc/systemd/system/gunicorn.service
+  110  systemctl daemon-reload
+  111  systemctl status gunicorn
+  112  pip3 remove ginicorn
+  113  pip3 install gunicorn
+  114  deactivate
+  115  ls -l
+  116  mc
+  117  python3 -m venv env
+  118  source env/bin/activate
+  119  pip3 install wheel
+  120  pip3 install -r requirements.txt
+  121  pip3 install psycopg2-binary
+  122  pip3 install gunicorn
+  123  systemctl daemon-reload
+  124  systemctl start gunicorn
+  125  systemctl status gunicorn
+  126  chown -R django /home/django/django/
+  127  systemctl stop gunicorn
+  128  systemctl daemon-reload
+  129  systemctl start gunicorn
+  130  systemctl status gunicorn
+  131  chmod -R 755 /home/django/django/
+  132  systemctl daemon-reload
+  133  systemctl status gunicorn
+  134  systemctl enable gunicorn
+  135  systemctl status gunicorn
+  136  systemctl stop gunicorn
+  137  systemctl status gunicorn
+  138  systemctl start gunicorn
+  139  systemctl status gunicorn
+  140  nano /etc/systemd/system/gunicorn.service
+  141  systemctl enable gunicorn
+  142  systemctl start gunicorn
+  143  systemctl status gunicorn
+  144  nano /etc/systemd/system/gunicorn.service
+  145  systemctl status gunicorn
+  146  systemctl stop gunicorn
+  147  systemctl daemon-reload
+  148  systemctl status gunicorn
+  149  systemctl start gunicorn
+  150  systemctl status gunicorn
+  151  systemctl status gunicorn
+  152  nano /etc/nginx/sites-available/geekhop
+  153  ln -s /etc/nginx/sites-available/geekhop /etc/nginx/sites-enabled/
+  154  ngiNX -T
+  155  nginx -t
+  156  nano /etc/nginx/sites-available/geekhop
+  157  nginx -t
+  158  mc
+  159  systemctl restart nginx
+  160  history > history.txt
